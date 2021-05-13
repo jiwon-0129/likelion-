@@ -1,0 +1,30 @@
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgb(175, 228, 245);
+    }
+    .row{
+        border-color: violet;
+    }
+</style>
+<h1>Creating Blog</h1>
+<table style= "position: absolute; top: 20%; left: 50%; transform: translate(-50%,-50%);">
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <thead>
+            <tr bgcolor="#BDBDBD" font color="white">
+                <th>제목</th>
+                <th>본문</th>
+                <th>해시태그</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" name="title" value = "{{ blog.title }}"></td>
+                <td><textarea name="body" id="" cols="30" rows="10" >{{ blog.body }}</textarea></td>
+                <td><input type="text" name="hashtags" placeholder="해시태그 ,로 구분"><button type="submit" style="background-color: rgb(2, 55, 202);"><span style="color: white">제출</span></button></td>
+            </tr>
+        </tbody></form>
+</table>

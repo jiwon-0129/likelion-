@@ -1,0 +1,62 @@
+<style>
+    body{
+        background-color: rgb(221, 247, 255);
+    }
+    h1{
+        text-align: center;
+    }
+    p{
+        text-align: center;
+    }
+    #a{
+        text-align: center;
+    }
+    .comment{
+        text-align: center;
+    }
+    .alert-primary{
+        text-align: center;
+        border-radius: 10px;
+        width: 10cm;
+        position: relative;
+        left: 40%; right: 40%; 
+
+    }
+</style>
+
+<h1>
+    <span style="color:rgb(0, 35, 100); font-family:'돋움';">{{blog.title}}</span></h1>
+<div style="border: 2px; border-style: solid; border-color: rgb(109, 58, 0); background-color: rgb(194, 248, 194); margin: 2px;">
+    <p>날짜: {{blog.pub_date}}</p>
+    <p>본문: {{blog.body}}</p>
+</div>
+<br>
+<br>
+<div id="a">
+    <button type="button" class="btn btn-primary position-relative" style="background-color: mediumaquamarine;">
+        <a href="{% url 'home' %}"><span style="color: rgb(255, 255, 255);">홈으로 돌아가기</span></a>
+    </button>
+    <button type="button" class="btn btn-dark position-relative" style="background-color: mediumaquamarine;">
+        <a href="{% url 'edit' blog.id %}"><span style="color: rgb(255, 255, 255);">수정하기</span></a></button>
+    <button type="button" class="btn btn-dark position-relative"style="background-color: mediumaquamarine;">
+        <a href="{% url 'delete' blog.id %}"><span style="color: aliceblue;">삭제하기</span></a></button>
+</div>
+<hr>
+{% for comment in blog.comments.all %}
+    <div class="comment">
+        <div class="date"> {{comment.created_at}}</div>
+        <strong>{{comment.author_name}}</strong>
+        <p>{{comment.comment_text|linebreaks}}</p>
+        <hr>
+    </div>
+{% empty %}
+    <div class="alert-primary" role="alert" style="border: 2px; border-style: solid; border-color: rgb(0, 115, 168); background-color: rgb(167, 234, 236); margin: 2px;">
+        첫번째 댓글의 주인공이 되어주세요 :)
+    </div>
+{% endfor %}
+    <p>{% for hashtag in hashtags.all %}
+            #{{hashtag}}
+                {% endfor %}</p>
+
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_post' blog.id %}">댓글달기</a>
